@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #fdfaf5;
+  --cream-100: #f9f2e3;
+  --cream-200: #f0e0c0;
+  --blush: #e8b4b8;
+  --blush-dark: #c05c63;
+  --sage: #a8b5a0;
+  --sage-dark: #6b8063;
+  --charcoal: #2a2020;
+  --charcoal-light: #3d3535;
+  --gold: #c9a96e;
+  --gold-light: #e8d5a3;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Jost', system-ui, sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Film grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--cream-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--blush);
+  border-radius: 3px;
+}
+
+/* Film strip hole pattern */
+.film-hole {
+  width: 12px;
+  height: 16px;
+  background: var(--charcoal);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Viewfinder corners */
+.viewfinder-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.8;
+}
+.viewfinder-corner.tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
+.viewfinder-corner.tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; }
+.viewfinder-corner.bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; }
+.viewfinder-corner.br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
+
+/* Masonry grid */
+.masonry-grid {
+  columns: 2;
+  column-gap: 0.75rem;
+}
+@media (min-width: 640px) {
+  .masonry-grid { columns: 3; }
+}
+@media (min-width: 1024px) {
+  .masonry-grid { columns: 4; }
+}
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+}
+
+/* Shutter flash */
+@keyframes shutterFlash {
+  0% { opacity: 0; }
+  10% { opacity: 0.7; }
+  100% { opacity: 0; }
+}
+.shutter-flash {
+  animation: shutterFlash 0.4s ease forwards;
+}
+
+/* Loading dots */
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+}
+.loading-dot {
+  animation: bounce 1.2s infinite ease-in-out;
+}
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Lightbox */
+.lightbox-overlay {
+  backdrop-filter: blur(8px) brightness(0.3);
+}
